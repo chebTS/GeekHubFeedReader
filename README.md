@@ -3,7 +3,7 @@ GeekHubAndroidFeedReader
 
 https://docs.google.com/file/d/0Bx9uMmtF66MWWXJGbFJmdmJNZ1U/edit
 
-Не реализовано: 
+Не реализовано: /n  \n
 1) Твиттер 
 2) Удаление из базы данных (по этому поводу будет вопрос)
 
