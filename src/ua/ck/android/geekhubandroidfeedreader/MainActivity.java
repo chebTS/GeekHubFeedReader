@@ -181,8 +181,13 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 		ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		boolean isWifiConn = networkInfo.isConnected();
+		boolean isMobileConn;
 		networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-		boolean isMobileConn = networkInfo.isConnected();
+		if (networkInfo == null){
+			isMobileConn = false;
+		}else{
+			isMobileConn = networkInfo.isConnected();
+		}
 		return (isWifiConn || isMobileConn);
 	}
 	
