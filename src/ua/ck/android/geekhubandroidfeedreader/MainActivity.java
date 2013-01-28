@@ -301,7 +301,7 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 			new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    TwitterUtils.sendTweetExec(MainActivity.this, "I like GeekHub Android developers Feed reader made by Цыбровский Сергей");
+                    TwitterUtils.sendTweetExec(MainActivity.this, "I like GeekHub Android developers Feed reader made by Sergey Tsibrovskiy");
                 }
             }).start();
             
@@ -327,7 +327,7 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 	        }
 	    	Log.i("POST","Permissions OK");
 	    	Bundle postParams = new Bundle();
-	        postParams.putString("name", "I like GeekHub Android developers Feed reader made by Цыбровский Сергей");
+	        postParams.putString("name", "I like GeekHub Android developers Feed reader made by Sergey Tsibrovskiy");
 	        postParams.putString("caption", "Read android developers blog in your android device");
 	        postParams.putString("description", "Awesome! Now You can read Android Developers feed from the Application");
 	        postParams.putString("link", "http://android.ck.ua");

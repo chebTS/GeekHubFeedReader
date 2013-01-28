@@ -1,6 +1,5 @@
 package ua.ck.android.geekhubandroidfeedreader;
 
-import ua.ck.android.geekhubandroidfeedreader.service.DownloadServiceGeekHub;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;

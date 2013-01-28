@@ -27,8 +27,6 @@ public class Fragment1 extends SherlockFragment {
 	  }
 	
 	
-	
-	
 	@Override
 	public void onResume() {
 		super.onResume();

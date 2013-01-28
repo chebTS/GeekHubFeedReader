@@ -176,18 +176,12 @@ public class DownloadServiceGeekHub extends Service {
  
   
   void sendNotify(){
-		// 1-я часть
-	    Notification notif = new Notification(R.drawable.ic_launcher, "Android feed updates", System.currentTimeMillis());
-	    
-	    // 3-я часть
+		Notification notif = new Notification(R.drawable.ic_launcher, "Android feed updates", System.currentTimeMillis());
 	    Intent intent = new Intent(DownloadServiceGeekHub.this, MainActivity.class);
 	    intent.putExtra("Update", "Update");
 	    PendingIntent pIntent = PendingIntent.getActivity(DownloadServiceGeekHub.this, 0, intent, 0);
-	    // 2-я часть
 	    notif.setLatestEventInfo(DownloadServiceGeekHub.this, "There are updates", "Android developers updates", pIntent);
-	    // ставим флаг, чтобы уведомление пропало после нажатия
 	    notif.flags |= Notification.FLAG_AUTO_CANCEL;
-	    // отправляем
 	    nm.notify(1, notif);
 	}
 }

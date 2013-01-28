@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -49,8 +48,4 @@ public class Fragment2 extends SherlockFragment {
 		}
 		return v;
 	}
-	
-	
-	
-	
 }
