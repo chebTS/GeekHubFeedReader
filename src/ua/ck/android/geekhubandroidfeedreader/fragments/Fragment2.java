@@ -2,7 +2,6 @@ package ua.ck.android.geekhubandroidfeedreader.fragments;
 
 import java.sql.SQLException;
 
-import ua.ck.android.geekhubandroidfeedreader.MainActivity;
 import ua.ck.android.geekhubandroidfeedreader.R;
 import ua.ck.android.geekhubandroidfeedreader.db.Article;
 import ua.ck.android.geekhubandroidfeedreader.db.ArticleDAO;
@@ -11,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 
 import com.actionbarsherlock.app.SherlockFragment;

@@ -16,6 +16,7 @@ import ua.ck.android.geekhubandroidfeedreader.fragments.Fragment1;
 import ua.ck.android.geekhubandroidfeedreader.fragments.Fragment1.onShowArticle;
 import ua.ck.android.geekhubandroidfeedreader.fragments.Fragment2;
 import ua.ck.android.geekhubandroidfeedreader.service.DownloadServiceGeekHub;
+import ua.ck.android.geekhubandroidfeedreader.twitter.TwitterUtils;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -297,7 +298,13 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 	        
 			break;
 		case R.id.twitter:
-			
+			new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    TwitterUtils.sendTweetExec(MainActivity.this, "I like GeekHub Android developers Feed reader made by Цыбровский Сергей");
+                }
+            }).start();
+            
 			break;
 		default:
 			break;
