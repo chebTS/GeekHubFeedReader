@@ -64,6 +64,7 @@ public class Fragment1 extends SherlockFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_1, null);
+		setRetainInstance(true);
 		listArticles = (ListView)v.findViewById(R.id.listArticles);
 		adapter = new ArticleAdapterGeekHub(articlesEmpty, inflater);
 		listArticles.setOnItemClickListener(new OnItemClickListener() {

@@ -19,6 +19,8 @@ public class Fragment2 extends SherlockFragment {
 	WebView webView;
 	Article curArticle;
 	
+	
+	
 	public void setData(Article article){
 		curArticle = article;
 		try{
@@ -41,6 +43,7 @@ public class Fragment2 extends SherlockFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_2, null);
+		setRetainInstance(true);
 		webView = (WebView)v.findViewById(R.id.webView);
 		if (curArticle != null){
 			webView.loadData(curArticle.getText(), "text/html", "UTF-8");

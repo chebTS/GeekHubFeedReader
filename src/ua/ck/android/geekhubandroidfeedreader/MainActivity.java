@@ -93,9 +93,23 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 		this.isCurrentArticleLiked = isCurrentArticleLiked;
 	}
 
+	
+	
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt("state", state);
+		super.onSaveInstanceState(outState);
+	}
+	
+	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (savedInstanceState != null){
+			state = savedInstanceState.getInt("state");
+		}
 		isCurrentArticleLiked = false;
 		HelperFactory.SetHelper(getApplicationContext());
 		setTheme(R.style.Theme_Sherlock_Light);
@@ -114,20 +128,23 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		frag1  = new Fragment1();
 		isShowingAll = true;
-		if (frame2 == null){
-			Log.i(DEBUG,"not isLandTablet");
-			isLandTablet = false;
-			state = STATE_LIST_ONLY;
+		if (state == STATE_ARTICLE_ONLY){
+			
 		}else{
-			Log.i(DEBUG,"isLandTablet");
-			isLandTablet = true;
-			state = STATE_LIST_AND_ARTICEL;
-			frag2  = new Fragment2();
-			ft.add(R.id.frame2, frag2);
+			if (frame2 == null){
+				Log.i(DEBUG,"not isLandTablet");
+				isLandTablet = false;
+				state = STATE_LIST_ONLY;
+			}else{
+				Log.i(DEBUG,"isLandTablet");
+				isLandTablet = true;
+				state = STATE_LIST_AND_ARTICEL;
+				frag2  = new Fragment2();
+				ft.add(R.id.frame2, frag2);
+			}
+			ft.add(R.id.frame1, frag1);
+			ft.commit();
 		}
-		ft.add(R.id.frame1, frag1);
-		ft.commit();
-		
 		broadcastReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
@@ -163,11 +180,10 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 	public static Boolean getInternetState(Context context) {
 		ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		return networkInfo.isConnected();
-		/*boolean isWifiConn = networkInfo.isConnected();
+		boolean isWifiConn = networkInfo.isConnected();
 		networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 		boolean isMobileConn = networkInfo.isConnected();
-		return (isWifiConn || isMobileConn);*/
+		return (isWifiConn || isMobileConn);
 	}
 	
 	@Override
@@ -196,6 +212,8 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 			
 		}
 	}
+	
+	
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -253,10 +271,18 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 		case R.id.like_dislike:
 			try{
 				ArticleDAO articleDAO = HelperFactory.GetHelper().getArticleDAO();
+				/*if (frag2 != null){
+					if (frag2.getCurArticle() != null){	
+					List<Article>all = articleDAO.getAllArticles();
+					if (all.contains(frag2.getCurArticle()));
+						articleDAO.delete(frag2.getCurArticle());
+						Toast.makeText(getApplicationContext(), "Article unmarked as liked", Toast.LENGTH_LONG).show();
+					}
+				}*/
+				
 				if (isCurrentArticleLiked){
 					if (frag2 != null){
-						if (frag2.getCurArticle() != null){
-							
+						if (frag2.getCurArticle() != null){							
 							articleDAO.delete(frag2.getCurArticle());	
 							Toast.makeText(getApplicationContext(), "Article unmarked as liked", Toast.LENGTH_LONG).show();
 						}
@@ -361,6 +387,7 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 	    }
 	}
 	
+	
 	private boolean isSubsetOf(Collection<String> subset, Collection<String> superset) {
 	    for (String string : subset) {
 	        if (!superset.contains(string)) {
@@ -369,6 +396,7 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 	    }
 	    return true;
 	}
+	
 	
 	@Override
     public boolean onCreateOptionsMenu(Menu  menu) {
