@@ -375,7 +375,7 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 	                if (error != null) {
 	                    Toast.makeText(MainActivity.this.getApplicationContext(),error.getErrorMessage(),Toast.LENGTH_SHORT).show();
 	                    } else {
-	                        Toast.makeText(MainActivity.this.getApplicationContext(),postId,Toast.LENGTH_LONG).show();
+	                        Toast.makeText(MainActivity.this.getApplicationContext(),"Post success",Toast.LENGTH_LONG).show();
 	                }
 	            }
 	        };
