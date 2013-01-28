@@ -11,12 +11,12 @@
         android:orderInCategory="100"
         android:showAsAction="always" />
     <item android:id="@+id/facebook"
-        android:icon="@drawable/ic_action_f"
+        android:icon="@drawable/ic_facebook"
         android:title="Facebook"
         android:orderInCategory="100"
         android:showAsAction="always" />
     <item android:id="@+id/twitter"
-        android:icon="@drawable/ic_action_t"
+        android:icon="@drawable/ic_twitter"
         android:title="Twitter"
         android:orderInCategory="100"
         android:showAsAction="always" />

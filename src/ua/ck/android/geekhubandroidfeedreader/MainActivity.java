@@ -256,6 +256,7 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 				if (isCurrentArticleLiked){
 					if (frag2 != null){
 						if (frag2.getCurArticle() != null){
+							
 							articleDAO.delete(frag2.getCurArticle());	
 							Toast.makeText(getApplicationContext(), "Article unmarked as liked", Toast.LENGTH_LONG).show();
 						}
@@ -287,7 +288,7 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 	                @Override
 	                public void onCompleted(GraphUser user, Response response) {
 	                  if (user != null) {
-	                	Toast.makeText(getApplicationContext(), "Hello " + user.getName() + "!" + user.getId(), Toast.LENGTH_LONG).show();  
+	                	Toast.makeText(getApplicationContext(), "Hello " + user.getName(), Toast.LENGTH_LONG).show();  
 	                	postOnWall();
 	                  }
 	                }

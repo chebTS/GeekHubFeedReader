@@ -18,4 +18,10 @@ public class ArticleDAO extends BaseDaoImpl<Article, Integer> {
        return this.queryForAll();
    }
    
+   public void DeleteByMyId(String sid){
+	   
+   }
+   
+   
+   
 }
