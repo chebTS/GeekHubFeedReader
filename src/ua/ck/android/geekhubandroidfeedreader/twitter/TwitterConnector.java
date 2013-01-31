@@ -20,7 +20,6 @@ import ua.ck.android.geekhubandroidfeedreader.MainActivity;
 public class TwitterConnector extends Activity {
 
     final String TAG = getClass().getName();
-
     private OAuthConsumer consumer;
     private OAuthProvider provider;
 
@@ -33,11 +32,12 @@ public class TwitterConnector extends Activity {
         } catch (Exception e) {
             Log.e(TAG, "Error creating consumer / provider", e);
         }
-
+       
         Log.i(TAG, "Starting task to retrieve request token.");
-        new OAuthRequestTokenTask(this,consumer,provider).execute();
+        new OAuthRequestTokenTask(this, TwitterConnector.this,consumer,provider).execute();
     }
 
+    
 
     @Override
     public void onNewIntent(Intent intent) {
@@ -51,6 +51,8 @@ public class TwitterConnector extends Activity {
             finish();
         }
     }
+    
+    
 
     public class RetrieveAccessTokenTask extends AsyncTask<Uri, Void, Void> {
 
@@ -83,7 +85,7 @@ public class TwitterConnector extends Activity {
                 String secret = prefs.getString(OAuth.OAUTH_TOKEN_SECRET, "");
 
                 consumer.setTokenWithSecret(token, secret);
-                context.startActivity(new Intent(context, MainActivity.class));
+                //context.startActivity(new Intent(context, MainActivity.class));
 
                 executeAfterAccessTokenRetrieval();
 
@@ -107,5 +109,19 @@ public class TwitterConnector extends Activity {
             }
         }
     }
+
+
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == 1){
+			//if (resultCode == Activity.RESULT_CANCELED ) {
+				finish();
+	        //}
+		}
+	}
+    
+    
 
 }

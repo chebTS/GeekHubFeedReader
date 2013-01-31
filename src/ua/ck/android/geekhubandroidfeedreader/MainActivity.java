@@ -99,6 +99,11 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putInt("state", state);
+		if (state == STATE_LIST_AND_ARTICEL){
+			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			ft.remove(frag2);
+			ft.commit();
+		}
 		super.onSaveInstanceState(outState);
 	}
 	
@@ -128,8 +133,21 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		frag1  = new Fragment1();
 		isShowingAll = true;
+		Log.i("Rotate", Integer.toString(state));
 		if (state == STATE_ARTICLE_ONLY){
-			
+			Log.i("Rotate","prev state == STATE_ARTICLE_ONLY");
+			if (frame2 == null){
+				Log.i("Rotate","isLandTablet = false");
+				isLandTablet = false;
+				state = STATE_LIST_ONLY;
+			}else{
+				Log.i("Rotate","isLandTablet = true");
+				isLandTablet = true;
+				state = STATE_LIST_AND_ARTICEL;				
+				ft.replace(R.id.frame1, frag1);
+				frag2 = new Fragment2();
+				ft.add(R.id.frame2, frag2);
+			}
 		}else{
 			if (frame2 == null){
 				Log.i(DEBUG,"not isLandTablet");
@@ -143,8 +161,10 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 				ft.add(R.id.frame2, frag2);
 			}
 			ft.add(R.id.frame1, frag1);
-			ft.commit();
+			
 		}
+		ft.commit();
+		
 		broadcastReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
@@ -181,8 +201,13 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 		ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		boolean isWifiConn = networkInfo.isConnected();
+		boolean isMobileConn;
 		networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-		boolean isMobileConn = networkInfo.isConnected();
+		if (networkInfo == null){
+			isMobileConn = false;
+		}else{
+			isMobileConn = networkInfo.isConnected();
+		}
 		return (isWifiConn || isMobileConn);
 	}
 	
@@ -195,7 +220,7 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 	
 	@Override
 	public void showArticle(Article article) {
-		
+		Log.i("Rotate","showArticle");
 		if (isLandTablet){
 			frag2.setData(article);
 		}else{
@@ -209,7 +234,6 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 			currArticle = article;
 			state = STATE_ARTICLE_ONLY;
 			invalidateOptionsMenu();
-			
 		}
 	}
 	
@@ -269,38 +293,29 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 			}
 			break;
 		case R.id.like_dislike:
+			Boolean needAdd = true;
 			try{
 				ArticleDAO articleDAO = HelperFactory.GetHelper().getArticleDAO();
-				/*if (frag2 != null){
-					if (frag2.getCurArticle() != null){	
-					List<Article>all = articleDAO.getAllArticles();
-					if (all.contains(frag2.getCurArticle()));
-						articleDAO.delete(frag2.getCurArticle());
-						Toast.makeText(getApplicationContext(), "Article unmarked as liked", Toast.LENGTH_LONG).show();
-					}
-				}*/
-				
-				if (isCurrentArticleLiked){
-					if (frag2 != null){
-						if (frag2.getCurArticle() != null){							
-							articleDAO.delete(frag2.getCurArticle());	
-							Toast.makeText(getApplicationContext(), "Article unmarked as liked", Toast.LENGTH_LONG).show();
+				if (frag2 != null){			
+					if (frag2.getCurArticle() != null){
+						frag2.getCurArticle().getId();
+						List<Article>all = articleDAO.getAllArticles();
+						for (Article a:all){
+							if (frag2.getCurArticle().getId().equals(a.getId())){
+								articleDAO.delete(a);
+								Toast.makeText(getApplicationContext(), "Article unmarked as liked", Toast.LENGTH_LONG).show();							
+								needAdd = false;
+							}
 						}
-					}
-				}else{
-					if (frag2 != null){
-						if (frag2.getCurArticle() != null){
+						if (needAdd){
 							articleDAO.create(frag2.getCurArticle());	
 							Toast.makeText(getApplicationContext(), "Article marked as liked", Toast.LENGTH_LONG).show();
 						}
 					}
 				}
-				//((MainActivity)getSherlockActivity()).setIsCurrentArticleLiked(true);
 			}catch (SQLException e) {
-				// TODO: handle exception
 			}	
-				
-				break;
+			break;
 		case R.id.facebook:
 			// start Facebook Login
 	        Session.openActiveSession(this, true, new Session.StatusCallback() {
