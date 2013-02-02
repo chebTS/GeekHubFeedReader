@@ -2,7 +2,7 @@
 <RelativeLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="48dp"
     android:orientation="horizontal" >
 
     <ImageView
@@ -24,6 +24,7 @@
         android:layout_toLeftOf="@+id/imgTitleRight"
         android:fontFamily="sans-serif"
         android:textSize="16sp"
+        android:lines="1"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         android:text="sdsa" />
@@ -33,13 +34,14 @@
         android:fontFamily="sans-serif"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="3dp"
+        android:lines="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/txtTitle"
         android:layout_below="@+id/txtTitle"
         android:textSize="11sp"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/background_dark"
         android:text="date" />
 
 </RelativeLayout>
