@@ -117,8 +117,8 @@ public class MainActivity extends SherlockFragmentActivity implements onShowArti
 		}
 		isCurrentArticleLiked = false;
 		HelperFactory.SetHelper(getApplicationContext());
-		setTheme(R.style.Theme_Sherlock_Light);
-		getSupportActionBar().setTitle("GH");
+		//setTheme(R.style.Theme_Sherlock_Light);
+		//getSupportActionBar().setTitle("GH");
 		if (!getInternetState(getApplicationContext())){
 			Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_LONG).show();
 		}else{
